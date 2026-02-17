@@ -1,0 +1,6 @@
+dev_clusters:
+  - cluster-1
+
+prod_clusters:
+  - cluster-2
+
