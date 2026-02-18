@@ -31,7 +31,7 @@ prod_clusters:
   - cluster-3
 ```
 
-### Run locally
+### Run locally (with venv)
 
 ```bash
 python3 -m venv venv
@@ -41,6 +41,22 @@ pip install -e ".[dev]"
 python -m project.main --config clusters.yaml
 python -m project.main --config clusters.yaml --dry-run
 ```
+
+### Run without installing dependencies every time (vendored / closed network)
+
+On a machine with internet, populate `vendor/` once:
+
+```bash
+make vendor
+```
+
+Then copy the whole project (including `vendor/`) to the target. On the target you only need Python 3.11+; no `pip install` is required. Run as usual:
+
+```bash
+python3 -m project.main --config clusters.yaml
+```
+
+In CI/Jenkins, run `make vendor` before packaging or deploying so the artifact already contains dependencies.
 
 ### Behavior notes
 
