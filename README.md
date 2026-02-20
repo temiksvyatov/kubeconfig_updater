@@ -31,6 +31,22 @@ prod_clusters:
   - cluster-3
 ```
 
+### Jenkins (webhook → run Docker image)
+
+The pipeline runs the app from a Docker image stored in your corporate registry (no Python/venv on the agent).
+
+1. **Build and push the image** (e.g. in a separate build pipeline or locally):
+   ```bash
+   docker build -t registry.example.com/your-group/kubeconfig-updater:latest .
+   docker push registry.example.com/your-group/kubeconfig-updater:latest
+   ```
+2. **In the Jenkinsfile**, set `DOCKER_REGISTRY` and `DOCKER_IMAGE` to your registry and image path.
+3. **In Jenkins**, create credentials:
+   - `docker-registry-credentials`: Username and password for the Docker registry.
+   - `rancher_dev_url`, `rancher_dev_token`, `rancher_prod_url`, `rancher_prod_token`, `vault_url`, `vault_token`: for Rancher and Vault (same as before).
+
+The job checks out the repo (for `clusters.yaml`), logs in to the registry, pulls the image, and runs it with env vars from the Jenkinsfile and credentials.
+
 ### Run locally
 
 ```bash
