@@ -1,0 +1,7 @@
+dev:
+  - dev-cluster-01
+  - dev-cluster-02
+prod:
+  - prod-cluster-01
+  - prod-cluster-02
+

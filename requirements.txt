@@ -1,0 +1,6 @@
+aiohttp
+pydantic
+pydantic-settings
+structlog
+pyyaml
+
